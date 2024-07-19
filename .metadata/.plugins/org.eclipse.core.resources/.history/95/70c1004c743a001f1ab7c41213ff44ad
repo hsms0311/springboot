@@ -1,0 +1,51 @@
+package statement;
+
+import java.sql.SQLException;
+
+public class UpdateQuery extends ConnectDB
+{
+	public UpdateQuery(String user, String pass)
+	{
+		super(user, pass);
+	}
+	
+	@Override
+	public void execute()
+	{
+		try
+		{
+			stmt = con.createStatement();
+			
+			String sql = "UPDATE member "
+					+ " SET "
+					+ "     pass='0311',     "
+					+ "     name='도구리',     "
+					+ "     regidate=sysdate     "
+					+ " WHERE id='test' ";
+			
+			System.out.println("sql = " + sql);
+			
+			int affected = stmt.executeUpdate(sql);
+			System.out.println(affected + "행이 업데이트 됨");
+		}
+		catch(SQLException e)
+		{
+			System.out.println("쿼리오류");
+			e.printStackTrace();
+		}
+		catch(Exception e)
+		{
+			System.out.println("알수없는 예외발생");
+			e.printStackTrace();
+		}
+		finally
+		{
+			close();
+		}
+	}
+	public static void main(String[] args)
+	{
+		new UpdateQuery("jw", "1234").execute();
+	}
+
+}

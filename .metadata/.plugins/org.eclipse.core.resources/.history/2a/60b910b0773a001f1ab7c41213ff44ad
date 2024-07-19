@@ -1,0 +1,58 @@
+package statement;
+
+import java.sql.SQLException;
+
+public class SelectQuery extends ConnectDB
+{
+	public SelectQuery()
+	{
+		super();
+	}
+	
+	@Override
+	public void execute()
+	{
+		try
+		{
+			stmt = con.createStatement();
+			
+			String query = "SELECT id, pass, name, regidate, "
+					+ " to_char(regidate, 'yyyy.mm.dd hh24:mi') d1 "
+					+ " FROM member";
+			
+			rs = stmt.executeQuery(query);
+			while(rs.next())
+			{
+				String id = rs.getString(1);
+				String pw = rs.getString("pass");
+				String name = rs.getString("name");
+				java.sql.Date regidate = rs.getDate("regidate");
+				
+				String regidate2 = rs.getString("regidate");
+				String regidate3 = rs.getString("regidate").substring(0, 13);
+				String regidate4 = rs.getString("d1");
+				
+				System.out.printf("%s %s %s %s %s %s %s\n",
+						id, pw, name, regidate, regidate2,
+						regidate3, regidate4);
+			}
+		}
+		catch(SQLException e)
+		{
+			System.out.println("쿼리오류발생");
+			e.printStackTrace();
+		}
+		finally
+		{
+			clone();
+		}
+	}
+	
+	public static void main(String[] args)
+	{
+		SelectQuery selectSQL = new SelectQuery();
+		selectSQL.execute();
+
+	}
+
+}

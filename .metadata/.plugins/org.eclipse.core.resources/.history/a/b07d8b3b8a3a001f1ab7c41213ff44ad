@@ -1,0 +1,32 @@
+package prepared;
+
+import connect.IConnectImpl;
+
+public class SelectSQL extends IConnectImpl
+{
+	public SelectSQL()
+	{
+		super("jw", "1234");
+	}
+	
+	@Override
+	public void execute()
+	{
+		try
+		{
+			while(true)
+			{
+				String sql = "SELECT * FROM member"
+//						+ " WHERE name LIKE '%?%'";
+						+ " WHERE name LIKE '%||?||%'";
+			}
+		}
+	}
+	
+	public static void main(String[] args)
+	{
+		// TODO Auto-generated method stub
+
+	}
+
+}
